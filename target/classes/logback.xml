@@ -12,6 +12,7 @@
 		</filter>
 	</appender>
 
+	<!-- 项目日志 -->
 	<appender name="mmall"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<!--<File>d:/mmalllog/mmall.log</File> -->
@@ -60,7 +61,7 @@
 
 
 
-	<!-- geelynote mybatis log 日志 -->
+	<!-- geelynote mybatis log 日志 /可查看实际执行的sql语句-->
 
 	<logger name="com.mmall.dao" level="DEBUG" />
 
