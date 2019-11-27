@@ -1,4 +1,5 @@
-mmall_learning    
+mmall_learning   
+dev环境：https://github.com/dbyxatu/mmall.git 
 
 环境参数
 	操作系统——Windows7 64位
