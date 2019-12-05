@@ -93,4 +93,14 @@ public interface IUserService {
 	 * @return
 	 */
 	ServerResponse<User> getInformation(int userId);
+
+	// backend
+
+	/**
+		 * 校验是否是管理员
+		 * 
+		 * @param user
+		 * @return
+		 */
+	ServerResponse checkAdminRole(User user);
 }

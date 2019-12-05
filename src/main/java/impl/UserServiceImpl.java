@@ -1,4 +1,4 @@
-package dby.service.impl;
+package impl;
 
 import java.util.UUID;
 
@@ -265,6 +265,21 @@ public class UserServiceImpl implements IUserService {
 		}
 		user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
 		return ServerResponse.createBySuccessStatusData(user);
+	}
+
+	// backend
+
+	/**
+	 * 校验是否是管理员
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public ServerResponse checkAdminRole(User user) {
+		if (user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN) {
+			return ServerResponse.createBySuccess();
+		}
+		return ServerResponse.createByError();
 	}
 
 }
