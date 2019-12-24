@@ -18,6 +18,10 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
 
+    /**
+     * 获取商品列表
+     * @return
+     */
     List<Product> selectList();
 
     List<Product> selectByNameAndProductId(@Param("productName")String productName,@Param("productId") Integer productId);

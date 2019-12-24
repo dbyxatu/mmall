@@ -1,85 +1,49 @@
 package com.mmall.vo;
 
+/**
+ * vo 视图显示对象，用于传递controller到前端的数据传输对象
+ * bo 业务传输对象，用于传递service到controller间的数据传输对象
+ * pojo 简单对象，其的对象属性全面，用于dao到service间的数据传输对象。
+ * 
+ */
 import java.math.BigDecimal;
+import lombok.*;
 
 /**
  * Created by geely
  */
 public class ProductListVo {
 
-    private Integer id;
-    private Integer categoryId;
+	@Setter
+	@Getter
+	private Integer id;
 
-    private String name;
-    private String subtitle;
-    private String mainImage;
-    private BigDecimal price;
+	@Setter
+	@Getter
+	private Integer categoryId;
 
-    private Integer status;
+	@Setter
+	@Getter
+	private String name;
 
-    private String imageHost;
+	@Setter
+	@Getter
+	private String subtitle;
 
-    public Integer getId() {
-        return id;
-    }
+	@Setter
+	@Getter
+	private String mainImage;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Setter
+	@Getter
+	private BigDecimal price;
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
+	@Setter
+	@Getter
+	private Integer status;
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
+	@Setter
+	@Getter
+	private String imageHost;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
-    }
-
-    public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getImageHost() {
-        return imageHost;
-    }
-
-    public void setImageHost(String imageHost) {
-        this.imageHost = imageHost;
-    }
 }
