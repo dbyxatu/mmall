@@ -123,6 +123,12 @@
     from mmall_category
     where parent_id = #{parentId}
   </select>
+  <update id="updateCategoryNameByPrimaryKey" parameterType="com.mmall.pojo.Category" >
+    update mmall_category
+    set 
+      name = #{name,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
 
 

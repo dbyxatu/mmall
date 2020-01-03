@@ -20,6 +20,12 @@ public interface UserMapper {
 
     int checkEmail(String email);
 
+    /**
+     * mybatis中传递多个参数时，需要使用@Param注解，使用后，在声明sql时需与注解中的参数名称对应
+     * @param username
+     * @param password
+     * @return
+     */
     User selectLogin(@Param("username") String username, @Param("password")String password);
 
     String selectQuestionByUsername(String username);
