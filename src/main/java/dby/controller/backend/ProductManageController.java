@@ -16,6 +16,7 @@ import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 
 import dby.service.IProductService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -26,6 +27,7 @@ import dby.service.IProductService;
  */
 @Controller
 @RequestMapping("/manage/product")
+@Slf4j
 public class ProductManageController {
 
 	@Autowired
@@ -135,6 +137,35 @@ public class ProductManageController {
 		if (iUserService.checkAdminRole(user).isSuccess()) {
 			// TODO
 			return iProductService.getProductList(pageNum, pageSize);
+		} else {
+			return ServerResponse.createByErrorMessage("无权限操作");
+		}
+
+	}
+	
+	
+	
+	/**
+	 * 后台-商品搜索
+	 * 
+	 * @param session
+	 * @param productId
+	 * @return
+	 */
+	@RequestMapping("dby_search.do")
+	@ResponseBody
+	public ServerResponse productSearch(HttpSession session, String productName, Integer productId,@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+		User user = (User) session.getAttribute(Const.CURRENT_USER);
+		log.info("用户{}需要搜索的商品名称:{} 商品Id:{}",user.getId(), productName, productId);
+		if (user == null) {
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录管理员");
+		}
+		if (iUserService.checkAdminRole(user).isSuccess()) {
+			// 搜索业务
+			return iProductService.searchProduct(productName, productId, pageNum, pageSize);
+			
 		} else {
 			return ServerResponse.createByErrorMessage("无权限操作");
 		}

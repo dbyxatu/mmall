@@ -27,4 +27,9 @@ public interface IProductService {
 	 * 获取商品列表并进行分页处理
 	 */
 	ServerResponse<PageInfo> getProductList(int pageNum, int pageSize);
+
+	/**
+	 * 后台-商品搜索
+	 */
+	ServerResponse<PageInfo> searchProduct(String productName, Integer productId, int pageNum, int pageSize);
 }

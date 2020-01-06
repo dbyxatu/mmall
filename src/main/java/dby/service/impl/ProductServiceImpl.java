@@ -152,13 +152,71 @@ public class ProductServiceImpl implements IProductService {
 	 */
 	public ServerResponse<PageInfo> getProductList(int pageNum, int pageSize) {
 
-		// startPage-start
-		// 填充自己的sql查询逻辑
-		// pageHelper收尾
+		/*
+		 * startPage-start 填充自己的sql查询逻辑 pageHelper收尾
+		 */
 
+		// step-1 startPage-start
 		PageHelper.startPage(pageNum, pageSize);
+
+		// step2-填充自己的sql查询逻辑
 		// 获取商品列表
 		List<Product> productList = productMapper.selectList();
+
+		// 获取ProductLiproductListVoListstVo
+		List<ProductListVo> productListVoList = Lists.newArrayList();
+		for (Product productItem : productList) {
+			ProductListVo productListVo = assembleProductListVo(productItem);
+			productListVoList.add(productListVo);
+		}
+
+		// step-3pageHelper收尾
+		// 利用productList进行分页
+		PageInfo pageResult = new PageInfo(productList);
+		// 最终显示的是productListVoList
+		pageResult.setList(productListVoList);
+
+		return ServerResponse.createBySuccess(pageResult);
+
+	}
+
+	/**
+	 * 配置ProductListVo对象 vo 视图显示对象，用于传递controller到前端的数据传输对象
+	 * 
+	 * @param product
+	 * @return
+	 */
+	private ProductListVo assembleProductListVo(Product product) {
+		ProductListVo productListVo = new ProductListVo();
+		productListVo.setId(product.getId());
+		productListVo.setName(product.getName());
+		productListVo.setCategoryId(product.getCategoryId());
+		productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix", "http://img.happymmall.com/"));
+		productListVo.setMainImage(product.getMainImage());
+		productListVo.setPrice(product.getPrice());
+		productListVo.setSubtitle(product.getSubtitle());
+		productListVo.setStatus(product.getStatus());
+		return productListVo;
+	}
+
+	/**
+	 * 后台-商品搜索
+	 * 
+	 * @param productName
+	 * @param productId
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public ServerResponse<PageInfo> searchProduct(String productName, Integer productId, int pageNum, int pageSize) {
+
+		PageHelper.startPage(pageNum, pageSize);
+
+		String likeProductName = "";
+		if (StringUtils.isNotBlank(productName)) {
+			likeProductName = new StringBuffer().append("%").append(productName).append("%").toString();
+		}
+		List<Product> productList = productMapper.selectByNameAndProductId(likeProductName, productId);
 
 		// 获取ProductLiproductListVoListstVo
 		List<ProductListVo> productListVoList = Lists.newArrayList();
@@ -174,25 +232,6 @@ public class ProductServiceImpl implements IProductService {
 
 		return ServerResponse.createBySuccess(pageResult);
 
-	}
-
-	/**
-	 * 配置ProductListVo对象
-	 * vo 视图显示对象，用于传递controller到前端的数据传输对象 
-	 * @param product
-	 * @return
-	 */
-	private ProductListVo assembleProductListVo(Product product) {
-		ProductListVo productListVo = new ProductListVo();
-		productListVo.setId(product.getId());
-		productListVo.setName(product.getName());
-		productListVo.setCategoryId(product.getCategoryId());
-		productListVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix", "http://img.happymmall.com/"));
-		productListVo.setMainImage(product.getMainImage());
-		productListVo.setPrice(product.getPrice());
-		productListVo.setSubtitle(product.getSubtitle());
-		productListVo.setStatus(product.getStatus());
-		return productListVo;
 	}
 
 }
